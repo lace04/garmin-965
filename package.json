@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "chrome-aws-lambda": "^10.1.0",
     "dotenv": "^16.4.7",
     "next": "15.1.6",
     "node-cron": "^3.0.3",
     "nodemailer": "^6.9.16",
     "puppeteer": "^24.1.0",
+    "puppeteer-core": "^24.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

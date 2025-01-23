@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import puppeteer from 'puppeteer-core';
+import chromium from 'chrome-aws-lambda';
 
 export async function GET(req: NextRequest) {
   try {
     console.log('Lanzando el navegador...');
 
     const browser = await puppeteer.launch({
-      headless: true,
-      executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium',
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: chromium.args,
+      executablePath: await chromium.executablePath || '',  // Usa Chromium de lambda o lanza error si no está disponible
+      headless: chromium.headless,
+      defaultViewport: chromium.defaultViewport,
     });
 
     const page = await browser.newPage();
