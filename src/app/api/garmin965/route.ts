@@ -1,10 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
 
 export async function GET(req: NextRequest) {
   try {
     console.log('Lanzando el navegador...');
-    const browser = await puppeteer.launch({ headless: true });
+
+    const browser = await puppeteer.launch({
+      headless: true,
+      executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium',
+      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    });
+
     const page = await browser.newPage();
 
     await page.goto('https://www.garmin.com.co/reloj-forerunner-965/p/', {
